@@ -87,7 +87,7 @@ const afterAddingStars: CollectionAfterChangeHook = async ({ doc, req, operation
       collection: 'leaderboards',
       where: {
         courses: {
-          equals: video?.course?.id!,
+          equals: typeof video?.course === 'string' ? video.course : video?.course?.id,
         },
       },
     })
@@ -98,8 +98,9 @@ const afterAddingStars: CollectionAfterChangeHook = async ({ doc, req, operation
 
     if (leaderboard) {
       const now = new Date()
-      let periodStart: Date
-      let periodEnd: Date
+      // Initialize with default values (current month)
+      let periodStart = new Date(now.getFullYear(), now.getMonth(), 1)
+      let periodEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0)
 
       // Calculate period start and end based on leaderboard type
       switch (leaderboard.type) {
@@ -110,12 +111,14 @@ const afterAddingStars: CollectionAfterChangeHook = async ({ doc, req, operation
           periodEnd.setDate(periodStart.getDate() + 7)
           break
         case 'monthly':
-          periodStart = new Date(now.getFullYear(), now.getMonth(), 1)
-          periodEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+          // Already set with default values
           break
         case 'yearly':
           periodStart = new Date(now.getFullYear(), 0, 1)
           periodEnd = new Date(now.getFullYear(), 11, 31)
+          break
+        default:
+          // Keep default monthly values for unknown types
           break
       }
 
@@ -157,13 +160,12 @@ const afterAddingStars: CollectionAfterChangeHook = async ({ doc, req, operation
             leaderboard: leaderboard.id,
             user: doc.user,
             star_count: doc.stars,
-            period_start: periodStart,
-            period_end: periodEnd,
+            period_start: periodStart.toISOString(),
+            period_end: periodEnd.toISOString(),
           },
         })
       }
     }
-
     return doc
   }
 }
