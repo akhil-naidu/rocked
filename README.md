@@ -1,5 +1,12 @@
 link to tldr: https://www.tldraw.com/p/kjRgmQXsaCAiMQyBJRsjg?d=v-89.812.1252.945.3-o-SoXeuXn5lZZlz3pPW
 
+Here is also a quick video demo link of what I've done so far: https://www.tella.tv/video/effortless-course-creation-ay93
+
+Link to the deployed Version: https://rocked-production.up.railway.app/admin
+credentials:
+username: admin@example.com
+password: changeme
+
 users => name, email
 courses => name, description, videos
 videos => title, duration, course (relation)
