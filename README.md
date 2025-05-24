@@ -1,5 +1,7 @@
 link to tldr: https://www.tldraw.com/p/kjRgmQXsaCAiMQyBJRsjg?d=v-89.812.1252.945.3-o-SoXeuXn5lZZlz3pPW
 
+// For more info connect with Akhil
+
 Here is also a quick video demo link of what I've done so far: https://www.tella.tv/video/effortless-course-creation-ay93
 
 Link to the deployed Version: https://rocked-production.up.railway.app/admin
